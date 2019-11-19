@@ -64,7 +64,7 @@
     "async": "2.6.0",
     "deepmerge": "2.1.0",
     "glob": "7.1.2",
-    "lodash": "4.17.5",
+    "lodash": "4.17.13",
     "lokijs": "1.5.3",
     "pegjs": "0.10.0",
     "vscode-jsonrpc": "3.6.0",
