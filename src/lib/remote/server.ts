@@ -20,4 +20,4 @@ export const giveProjectEnv = new RequestType<TextDocumentIdentifier, string[], 
   "reason.server.giveProjectEnv",
 );
 
-void ordinal; // tslint:disable-line no-unused-expression
+void ordinal;
