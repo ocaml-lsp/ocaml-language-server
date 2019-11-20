@@ -16,7 +16,7 @@
     <a href="https://npmjs.org/package/ocaml-language-server"><img
         src="https://img.shields.io/librariesio/release/npm/ocaml-language-server.svg?logo=npm" /></a>
   </p>
-  <strong>A language server for <a href="http://ocaml.org">OCaml</a> and <a href="https://reasonml.github.io">Reason</a>.</strong>
+  <strong>A language server for <a href="http://ocaml.org"><img style="padding: 0em 0.15em 0em 0em; text-align: center;" height="16" width="16" src="https://unpkg.com/simple-icons@latest/icons/ocaml.svg" />OCaml</a> and <a href="https://reasonml.github.io"><img style="padding: 0em 0.15em 0em 0em; text-align: center;" height="16" width="16" src="https://unpkg.com/simple-icons@latest/icons/reason.svg" />Reason</a>.</strong>
 </div>
 
 ## Overview
