@@ -1,3 +1,4 @@
+---
 bracketSpacing: true
 jsxBracketSameLine: true
 printWidth: 120
@@ -7,6 +8,6 @@ tabWidth: 2
 trailingComma: all
 useTabs: false
 overrides:
-- files: "*.ts"
-  options:
-    parser: typescript
+  - files: "*.ts"
+    options:
+      parser: typescript
