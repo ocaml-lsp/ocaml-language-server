@@ -1,6 +1,11 @@
-# ocaml-language-server
-
-A language server for [OCaml](http://ocaml.org) and [Reason](https://reasonml.github.io)
+<div align="center">
+  <h1>ocaml-language-server</h1>
+  <p style="margin-bottom: 0.5ex;">
+    <a href="https://github.com/ocaml-lsp/ocaml-language-server/actions"><img
+        src="https://github.com/ocaml-lsp/ocaml-language-server/workflows/ci/badge.svg" /></a>
+  </p>
+  <strong>A language server for <a href="http://ocaml.org">OCaml</a> and <a href="https://reasonml.github.io">Reason</a>.</strong>
+</div>
 
 ## Overview
 
@@ -24,22 +29,22 @@ requiring extensive configuration effort.
 The OCaml Language Server supports the following LSP capabilities and custom
 features:
 
-* [x] OCaml support
-* [x] Reason support
-* [x] BuckleScript [build system](https://bucklescript.github.io/bucklescript/Manual.html#_bucklescript_build_system_code_bsb_code)
-* [x] compiler diagnostics
-* [x] incremental document synchronization
-* [x] code action provider
-* [x] code lens provider
-* [x] completion provider
-* [x] definition provider
-* [x] document formatting provider
-* [x] document highlight provider
-* [x] document range formatting provider (Reason)
-* [x] document symbol provider
-* [x] hover provider
-* [x] references provider
-* [x] workspace symbol provider
+- ☑ OCaml support
+- ☑ Reason support
+- ☑ BuckleScript [build system](https://bucklescript.github.io/bucklescript/Manual.html#_bucklescript_build_system_code_bsb_code)
+- ☑ compiler diagnostics
+- ☑ incremental document synchronization
+- ☑ code action provider
+- ☑ code lens provider
+- ☑ completion provider
+- ☑ definition provider
+- ☑ document formatting provider
+- ☑ document highlight provider
+- ☑ document range formatting provider (Reason)
+- ☑ document symbol provider
+- ☑ hover provider
+- ☑ references provider
+- ☑ workspace symbol provider
 
 ## Clients
 
@@ -47,15 +52,15 @@ The following editor plugins are configured to work with the OCaml Language Serv
 
 ### Installation
 
-* [Atom](https://github.com/reasonml-editor/atom-ide-reason)
+- [Atom](https://github.com/reasonml-editor/atom-ide-reason)
 
-* [Code](https://github.com/freebroccolo/vscode-reasonml)
+- [Code](https://github.com/freebroccolo/vscode-reasonml)
 
-* [Oni](https://github.com/bryphe/oni/wiki/Language-Support#reason-and-ocaml)
+- [Oni](https://github.com/bryphe/oni/wiki/Language-Support#reason-and-ocaml)
 
-* [Sublime Text](https://github.com/reasonml-editor/sublime-reason) (requires server installation)
+- [Sublime Text](https://github.com/reasonml-editor/sublime-reason) (requires server installation)
 
-* [(Neo)Vim](https://github.com/reasonml-editor/vim-reason-plus) (requires server installation)
+- [(Neo)Vim](https://github.com/reasonml-editor/vim-reason-plus) (requires server installation)
 
 ## Server
 
@@ -85,5 +90,5 @@ ocaml-language-server --stdio             # communicate over stdio
 
 Contributions are welcome and encouraged. Please see the following documents:
 
-* [Code of Conduct](CODE_OF_CONDUCT.md)
-* [Contributing](CONTRIBUTING.md)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Contributing](CONTRIBUTING.md)
