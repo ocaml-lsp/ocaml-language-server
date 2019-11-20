@@ -3,5 +3,5 @@ import * as command from "../command";
 import Session from "../session";
 
 export default function(session: Session): LSP.RequestHandler<LSP.TextDocumentIdentifier, string[], void> {
-  return event => command.getMerlinFiles(session, null, event);
+  return (event): Promise<string[]> => command.getMerlinFiles(session, null, event);
 }

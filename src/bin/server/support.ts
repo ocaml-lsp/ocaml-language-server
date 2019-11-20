@@ -1,4 +1,5 @@
 import * as LSP from "vscode-languageserver-protocol";
+import * as RPC from "vscode-jsonrpc";
 import Session from "./session";
 
 export type AsyncRequestHandler<P, R, E> = (
@@ -10,7 +11,7 @@ export function cancellableHandler<P, R, E>(
   _session: Session,
   handler: AsyncRequestHandler<P, R, E>,
 ): LSP.RequestHandler<P, R, E> {
-  return (event, token) => {
+  return (event, token): RPC.HandlerResult<R, E> => {
     const sentinel = new Promise((_resolve, reject) =>
       token.onCancellationRequested(() => {
         const error = new LSP.ResponseError(LSP.ErrorCodes.RequestCancelled, "cancellableHandler::reject");

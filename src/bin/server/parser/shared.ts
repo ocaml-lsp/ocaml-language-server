@@ -2,6 +2,7 @@ import * as LSP from "vscode-languageserver-protocol";
 
 type DiagnosticSource = "bucklescript" | "refmt";
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const createDiagnostic = (source: DiagnosticSource) => (
   message: string,
   startCharacter: number,

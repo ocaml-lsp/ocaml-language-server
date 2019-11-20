@@ -1,4 +1,4 @@
-import URI from "vscode-uri";
+import { URI } from "vscode-uri";
 import { Host } from "./host";
 
 export class Resource {
@@ -15,45 +15,51 @@ export class Resource {
     }
   }
   protected readNative(skipEncoding: boolean): URI {
+    const uriWSL = (): URI => {
+      const uri = this.uri.toString(skipEncoding);
+      // FIXME: move this check somewhere earlier and do it only once
+      const localappdataFile = process.env.localappdata;
+      if (null == localappdataFile) throw new Error("LOCALAPPDATA must be set in environment to interpret WSL /home");
+      // FIXME: compute localappdata earlier and do it only once
+      const localappdata = URI.file(localappdataFile).toString(skipEncoding);
+      let match: RegExpMatchArray | null = null;
+      // rewrite /mnt/…
+      if (null != (match = uri.match(/^file:\/\/\/mnt\/([a-zA-Z])\/(.*)$/))) {
+        match.shift();
+        const drive = match.shift() as string;
+        const rest = match.shift() as string;
+        return URI.parse(`file:///${drive}:/${rest}`);
+      }
+      // rewrite /home/…
+      if (null != (match = uri.match(/^file:\/\/\/home\/(.+)$/))) {
+        match.shift();
+        const rest = match.shift() as string;
+        return URI.parse(`${localappdata}/lxss/home/${rest}`);
+      }
+      throw new Error("unreachable");
+    };
     switch (this.source) {
       case Host.Native:
         return this.uri;
       case Host.WSL:
-        const uri = this.uri.toString(skipEncoding);
-        // FIXME: move this check somewhere earlier and do it only once
-        const localappdataFile = process.env.localappdata;
-        if (null == localappdataFile) throw new Error("LOCALAPPDATA must be set in environment to interpret WSL /home");
-        // FIXME: compute localappdata earlier and do it only once
-        const localappdata = URI.file(localappdataFile).toString(skipEncoding);
-        let match: RegExpMatchArray | null = null;
-        // rewrite /mnt/…
-        if (null != (match = uri.match(/^file:\/\/\/mnt\/([a-zA-Z])\/(.*)$/))) {
-          match.shift();
-          const drive = match.shift() as string;
-          const rest = match.shift() as string;
-          return URI.parse(`file:///${drive}:/${rest}`);
-        }
-        // rewrite /home/…
-        if (null != (match = uri.match(/^file:\/\/\/home\/(.+)$/))) {
-          match.shift();
-          const rest = match.shift() as string;
-          return URI.parse(`${localappdata}/lxss/home/${rest}`);
-        }
-        throw new Error("unreachable");
+        return uriWSL();
     }
   }
   protected readWSL(skipEncoding: boolean): URI {
+    const uriNative = (): URI => {
+      const uri = this.uri.toString(skipEncoding);
+      let match: RegExpMatchArray | null = null;
+      if (null != (match = uri.match(/^file:\/\/\/([a-zA-Z]):(.*)$/))) {
+        match.shift();
+        const drive = match.shift() as string;
+        const rest = match.shift() as string;
+        return URI.parse(`file:///mnt/${drive}${rest}`);
+      }
+      throw new Error("unreachable");
+    };
     switch (this.source) {
       case Host.Native:
-        const uri = this.uri.toString(skipEncoding);
-        let match: RegExpMatchArray | null = null;
-        if (null != (match = uri.match(/^file:\/\/\/([a-zA-Z]):(.*)$/))) {
-          match.shift();
-          const drive = match.shift() as string;
-          const rest = match.shift() as string;
-          return URI.parse(`file:///mnt/${drive}${rest}`);
-        }
-        throw new Error("unreachable");
+        return uriNative();
       case Host.WSL:
         return this.uri;
     }

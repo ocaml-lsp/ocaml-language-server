@@ -3,14 +3,13 @@ import Session from "../session";
 export default class Esy {
   constructor(private readonly session: Session) {}
 
-  public run(): Promise<string> {
-    let buffer = "";
-    return new Promise(resolve => {
-      const command = this.session.settings.reason.path.esy;
-      const args = ["build"];
-      const process = this.session.environment.spawn(command, args);
-
-      process.on("error", (error: Error & { code: string }) => {
+  public async run(): Promise<string> {
+    const command = this.session.settings.reason.path.esy;
+    const args = ["build"];
+    const esy = this.session.environment.spawn(command, args);
+    const res = await new Promise<string>((resolve, reject) => {
+      let buffer = "";
+      esy.on("error", (error: Error & { code: string }) => {
         if ("ENOENT" === error.code) {
           const msg = `Perhapse we cannot find esy binary at "${command}".`;
           this.session.connection.window.showWarningMessage(msg);
@@ -18,10 +17,14 @@ export default class Esy {
             `Double check your path or try configuring "reason.path.esy" under "User Settings". Do you need to "npm install -g esy"? Alternatively, disable "esy" in "reason.diagnostics.tools"`,
           );
         }
-        resolve("");
+        return reject(error);
       });
-      process.stdout.on("data", (data: Buffer | string) => (buffer += data.toString()));
-      process.stdout.on("end", () => resolve(buffer));
+      if (null == esy.stdout) {
+        return reject("null == esy.stdout");
+      }
+      esy.stdout.on("data", (data: Buffer | string) => (buffer += data.toString()));
+      esy.stdout.on("end", () => resolve(buffer));
     });
+    return res;
   }
 }

@@ -6,7 +6,7 @@ export default async (
   session: Session,
   token: CancellationToken,
   event: TextDocumentPositionParams,
-  priority: number = 0,
+  priority = 0,
 ): Promise<null | string> => {
   const position = merlin.Position.fromCode(event.position);
   const request = merlin.Query.document(null).at(position);

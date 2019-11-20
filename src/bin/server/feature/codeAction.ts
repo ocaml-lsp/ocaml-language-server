@@ -3,7 +3,7 @@ import Session from "../session";
 import * as support from "../support";
 
 export default function(session: Session): LSP.RequestHandler<LSP.CodeActionParams, LSP.Command[], never> {
-  return support.cancellableHandler(session, async (event, _token) => {
+  return support.cancellableHandler(session, async event => {
     const actions: LSP.Command[] = [];
     let matches: null | RegExpMatchArray = null;
     for (const { message, range } of event.context.diagnostics) {

@@ -3,14 +3,15 @@ import * as childProcess from "child_process";
 import * as lodash from "lodash";
 import * as readline from "readline";
 import * as LSP from "vscode-languageserver-protocol";
-import URI from "vscode-uri";
+import { URI } from "vscode-uri";
 import { merlin } from "../../../lib";
 import Session from "../session";
 
 export default class Merlin implements LSP.Disposable {
-  private readonly queue: async.AsyncPriorityQueue<merlin.Task>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private readonly queue: async.AsyncPriorityQueue<merlin.Task<any>>;
   private readonly readline: readline.ReadLine;
-  private readonly process: childProcess.ChildProcess;
+  private readonly ocamlmerlin: childProcess.ChildProcess;
 
   constructor(private readonly session: Session) {}
 
@@ -23,12 +24,13 @@ export default class Merlin implements LSP.Disposable {
     const cwd = this.session.initConf.rootUri || this.session.initConf.rootPath;
     const options = cwd ? { cwd: URI.parse(cwd).fsPath } : {};
 
-    (this.process as any) = this.session.environment.spawn(ocamlmerlin, [], options);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (this.ocamlmerlin as any) = this.session.environment.spawn(ocamlmerlin, [], options);
 
     // this.process.on("exit", (code, signal) => {
     //   this.session.connection.console.log(JSON.stringify({ code, signal }));
     // });
-    this.process.on("error", (error: Error & { code: string }) => {
+    this.ocamlmerlin.on("error", (error: Error & { code: string }) => {
       // this.session.connection.console.log(JSON.stringify({ error }));
       if ("ENOENT" === error.code) {
         this.session.connection.window.showWarningMessage(`Cannot find merlin binary at "${ocamlmerlin}".`);
@@ -38,20 +40,34 @@ export default class Merlin implements LSP.Disposable {
       }
       throw error;
     });
-    this.process.stderr.on("data", (data: string) => {
+
+    if (null == this.ocamlmerlin.stdout) {
+      throw new Error("null == this.ocamlmerlin.stdout");
+    }
+    if (null == this.ocamlmerlin.stdin) {
+      throw new Error("null == this.ocamlmerlin.stdin");
+    }
+    if (null == this.ocamlmerlin.stderr) {
+      throw new Error("null == this.ocamlmerlin.stderr");
+    }
+
+    this.ocamlmerlin.stderr.on("data", (data: string) => {
       this.session.connection.window.showErrorMessage(`ocamlmerlin error: ${data}`);
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (this.readline as any) = readline.createInterface({
-      input: this.process.stdout,
-      output: this.process.stdin,
+      input: this.ocamlmerlin.stdout,
+      output: this.ocamlmerlin.stdin,
       terminal: false,
     });
+
     // this.readline.on("close", () => {
     //   this.session.connection.console.log("readline: close");
     // });
 
-    const worker: async.AsyncWorker<merlin.Task, merlin.MerlinResponse<any>> = (task, callback) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const worker: async.AsyncWorker<merlin.Task<any>, merlin.MerlinResponse<any>> = (task, callback) => {
       const begunProcessing = new Date();
       if (null != task.token && task.token.isCancellationRequested) {
         return callback({
@@ -67,6 +83,7 @@ export default class Merlin implements LSP.Disposable {
         }),
       );
     };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (this.queue as any) = async.priorityQueue(worker, 1);
 
     await this.establishProtocol();
@@ -83,21 +100,31 @@ export default class Merlin implements LSP.Disposable {
     // );
     const context: ["auto", string] | undefined = id ? ["auto", URI.parse(id.uri).fsPath] : undefined;
     const request = context ? { context, query } : query;
-    return new Promise(resolve => this.queue.push(new merlin.Task(request, token), priority, resolve));
+    return new Promise(resolve => {
+      const task = new merlin.Task(request, token);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const callback: async.AsyncResultArrayCallback<I> = (value: any) => {
+        resolve(null == value ? undefined : value);
+      };
+      this.queue.push(task, priority, callback);
+    });
   }
 
   public async restart(): Promise<void> {
     if (null != this.queue) {
       this.queue.kill();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (this.queue as any) = null;
     }
     if (null != this.readline) {
       this.readline.close();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (this.readline as any) = null;
     }
-    if (null != this.process) {
-      this.process.kill();
-      (this.process as any) = null;
+    if (null != this.ocamlmerlin) {
+      this.ocamlmerlin.kill();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (this.ocamlmerlin as any) = null;
     }
     await this.initialize();
   }
@@ -113,7 +140,14 @@ export default class Merlin implements LSP.Disposable {
     // );
     const context: ["auto", string] | undefined = id ? ["auto", URI.parse(id.uri).fsPath] : undefined;
     const request = context ? { context, query } : query;
-    return new Promise(resolve => this.queue.push(new merlin.Task(request), 0, resolve));
+    return new Promise(resolve => {
+      const task = new merlin.Task(request);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const callback: async.AsyncResultArrayCallback<I> = (value: any) => {
+        resolve(null == value ? undefined : value);
+      };
+      this.queue.push(task, 0, callback);
+    });
   }
 
   private async establishProtocol(): Promise<void> {
@@ -124,8 +158,8 @@ export default class Merlin implements LSP.Disposable {
     }
   }
 
-  private logMessage<A>(begunProcessing: Date, task: merlin.Task): (result: A) => A {
-    return result => {
+  private logMessage<A>(begunProcessing: Date, task: merlin.Task<A>): (result: A) => A {
+    return (result): A => {
       if (
         null != this.session.settings.reason.diagnostics &&
         this.session.settings.reason.diagnostics.merlinPerfLogging

@@ -6,26 +6,38 @@ import Session from "../session";
 export async function ocpIndent(session: Session, doc: LSP.TextDocument): Promise<string> {
   const text = doc.getText();
   const ocpIndent = new processes.OcpIndent(session, []).process;
+  if (null == ocpIndent.stdin) {
+    throw new Error("null == ocpIndent.stdin");
+  }
   ocpIndent.stdin.write(text);
   ocpIndent.stdin.end();
-  const otxt = await new Promise<string>((resolve, reject) => {
+  const res = await new Promise<string>((resolve, reject) => {
     let buffer = "";
+    if (null == ocpIndent.stdout) {
+      return reject("null == ocpIndent.stdout");
+    }
     ocpIndent.stdout.on("error", (error: Error) => reject(error));
     ocpIndent.stdout.on("data", (data: Buffer | string) => (buffer += data.toString()));
     ocpIndent.stdout.on("end", () => resolve(buffer));
   });
   ocpIndent.unref();
-  return otxt;
+  return res;
 }
 
 export async function ocpIndentRange(session: Session, doc: LSP.TextDocument, range: LSP.Range): Promise<number[]> {
   const text = doc.getText();
   const args: string[] = ["--indent-empty", `--lines=${range.start.line}-${range.end.line}`, "--numeric"];
   const ocpIndent = new processes.OcpIndent(session, args).process;
+  if (null == ocpIndent.stdin) {
+    throw new Error("null == ocpIndent.stdin");
+  }
   ocpIndent.stdin.write(text);
   ocpIndent.stdin.end();
   const output = await new Promise<string>((resolve, reject) => {
     let buffer = "";
+    if (null == ocpIndent.stdout) {
+      return reject("null == ocpIndent.stdout");
+    }
     ocpIndent.stdout.on("error", (error: Error) => reject(error));
     ocpIndent.stdout.on("data", (data: Buffer | string) => (buffer += data.toString()));
     ocpIndent.stdout.on("end", () => resolve(buffer));
@@ -52,16 +64,25 @@ export async function refmt(session: Session, doc: LSP.TextDocument, range?: LSP
   const text = doc.getText();
   if (/^\s*$/.test(text)) return text;
   const refmt = new processes.ReFMT(session, doc).process;
+  if (null == refmt.stdin) {
+    throw new Error("null == refmt.stdin");
+  }
   refmt.stdin.write(text);
   refmt.stdin.end();
   const otxt = await new Promise<string>((resolve, reject) => {
     let buffer = "";
     let bufferError = "";
 
+    if (null == refmt.stdout) {
+      return reject("null == refmt.stdout");
+    }
     refmt.stdout.on("error", (error: Error) => reject(error));
     refmt.stdout.on("data", (data: Buffer | string) => (buffer += data.toString()));
     refmt.stdout.on("end", () => resolve(buffer));
 
+    if (null == refmt.stderr) {
+      return reject("null == refmt.stderr");
+    }
     refmt.stderr.on("data", (data: Buffer | string) => (bufferError += data.toString()));
     refmt.stderr.on("end", () => {
       const diagnostics = refmtParser.parseErrors(bufferError);

@@ -9,7 +9,7 @@ import Session from "./session";
 const session = new Session();
 
 // vsocde server lifecycle
-session.connection.onExit(lifecycle.exit(session));
+session.connection.onExit(lifecycle.exit());
 session.connection.onInitialize(lifecycle.initialize(session));
 session.connection.onShutdown(lifecycle.shutdown(session));
 

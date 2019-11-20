@@ -1,6 +1,6 @@
 const parser: {
   parse(input: string): string;
-} = require("./grammar"); // tslint:disable-line no-var-requires
+} = require("./grammar"); // eslint-disable-line @typescript-eslint/no-var-requires
 
 export const ignore = new RegExp(
   [

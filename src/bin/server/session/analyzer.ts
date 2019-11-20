@@ -35,7 +35,9 @@ export default class Analyzer implements LSP.Disposable {
   }
 
   public onDidChangeConfiguration(): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (this.refreshImmediate as any) = this.refreshWithKind(LSP.TextDocumentSyncKind.Full);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (this.refreshDebounced as any) = lodash.debounce(
       this.refreshWithKind(LSP.TextDocumentSyncKind.Incremental),
       this.session.settings.reason.debounce.linter,
@@ -44,7 +46,7 @@ export default class Analyzer implements LSP.Disposable {
   }
 
   public refreshWithKind(syncKind: LSP.TextDocumentSyncKind): (id: LSP.TextDocumentIdentifier) => Promise<void> {
-    return async id => {
+    return async (id): Promise<void> => {
       const tools: Set<string> = new Set(this.session.settings.reason.diagnostics.tools);
       if (tools.size < 1) return;
 

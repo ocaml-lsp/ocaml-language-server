@@ -22,6 +22,7 @@ export default class Session implements LSP.Disposable {
   public readonly indexer: Indexer;
   public readonly initConf: LSP.InitializeParams;
   public readonly merlin: Merlin;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public readonly settings: ISettings = {} as any;
   public readonly synchronizer: Synchronizer;
 
@@ -35,6 +36,7 @@ export default class Session implements LSP.Disposable {
 
   public cancelTokens<S extends CancellationSources>(sourceName: S): void {
     this.cancellationSources[sourceName].cancel();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (this.cancellationSources[sourceName] as any) = new LSP.CancellationTokenSource();
     return;
   }
@@ -47,6 +49,7 @@ export default class Session implements LSP.Disposable {
     this.synchronizer.dispose();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public error(data: any): void {
     this.connection.console.error(JSON.stringify(data, null, 2));
   }
@@ -64,12 +67,14 @@ export default class Session implements LSP.Disposable {
     this.connection.listen();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public log(data: any): void {
     this.connection.console.log(JSON.stringify(data, null, 2));
   }
 
   public async onDidChangeConfiguration({ settings }: LSP.DidChangeConfigurationParams): Promise<void> {
     const oldMerlinPath = this.settings.reason.path.ocamlmerlin;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (this.settings as any) = { ...this.settings, ...settings };
     if (this.settings.reason.path.ocamlmerlin !== oldMerlinPath) {
       // this.connection.console.log(`merlin path changed: ${settings.reason.path.ocamlmerlin}, restarting...`)

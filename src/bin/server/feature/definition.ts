@@ -1,5 +1,5 @@
 import * as LSP from "vscode-languageserver-protocol";
-import URI from "vscode-uri";
+import { URI } from "vscode-uri";
 import { merlin } from "../../../lib";
 import Session from "../session";
 import * as support from "../support";

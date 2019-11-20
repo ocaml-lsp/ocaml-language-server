@@ -1,8 +1,8 @@
 import * as LSP from "vscode-languageserver-protocol";
 
-export class Task {
+export class Task<I> {
   constructor(
-    readonly task: any,
+    readonly task: I | { context: ["auto", string]; query: I },
     readonly token: LSP.CancellationToken | null = null,
     readonly enqueuedAt: Date = new Date(),
   ) {}

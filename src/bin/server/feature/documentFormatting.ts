@@ -4,7 +4,7 @@ import Session from "../session";
 import * as support from "../support";
 
 export default function(session: Session): LSP.RequestHandler<LSP.DocumentFormattingParams, LSP.TextEdit[], never> {
-  return support.cancellableHandler(session, async (event, _token) => {
+  return support.cancellableHandler(session, async event => {
     const result = await command.getTextDocument(session, event.textDocument);
     if (null == result) return [];
     const document = LSP.TextDocument.create(

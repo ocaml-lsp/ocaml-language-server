@@ -113,6 +113,7 @@ export namespace IErrorReport {
     return codeMatch && codeMatch.length > 1 ? codeMatch[1] : "";
   }
   export async function intoCode(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     session: any,
     { uri }: LSP.TextDocumentIdentifier,
     { end, message: original, start, type }: IErrorReport,

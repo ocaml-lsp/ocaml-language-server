@@ -48,7 +48,9 @@ export default class Synchronizer implements LSP.Disposable {
     languageId: string,
     content: string,
   ): Promise<void> {
-    this.documents.set(document.uri, LSP.TextDocument.create(document.uri, languageId, document.version, content));
+    const version = document.version ? document.version : 0;
+    const textDocument = LSP.TextDocument.create(document.uri, languageId, version, content);
+    this.documents.set(document.uri, textDocument);
     const request = merlin.Sync.tell("start", "end", content);
     await this.session.merlin.sync(request, document);
   }
@@ -58,14 +60,15 @@ export default class Synchronizer implements LSP.Disposable {
     newDocument: LSP.VersionedTextDocumentIdentifier,
     change: LSP.TextDocumentContentChangeEvent,
   ): Promise<void> {
-    if (null == change || null == change.range) return;
+    if (null == change || null == change.range) {
+      return;
+    }
 
     const newContent = this.applyChangesToTextDocumentContent(oldDocument, change);
     if (null != newContent) {
-      this.documents.set(
-        newDocument.uri,
-        LSP.TextDocument.create(oldDocument.uri, oldDocument.languageId, newDocument.version, newContent),
-      );
+      const version = newDocument.version ? newDocument.version : 0;
+      const newTextDocument = LSP.TextDocument.create(oldDocument.uri, oldDocument.languageId, version, newContent);
+      this.documents.set(newDocument.uri, newTextDocument);
     }
 
     const startPos = merlin.Position.fromCode(change.range.start);

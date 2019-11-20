@@ -1,4 +1,4 @@
-import * as deepmerge from "deepmerge";
+import deepmerge from "deepmerge";
 import * as merlin from "./merlin";
 import * as remote from "./remote";
 import * as types from "./types";

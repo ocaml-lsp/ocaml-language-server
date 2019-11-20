@@ -19,7 +19,7 @@ export default function(session: Session): LSP.RequestHandler<LSP.CodeLensParams
     if (languages.has("ocaml")) allowedFileKinds.push("ml");
     if (languages.has("reason")) allowedFileKinds.push("re");
 
-    const fileKindMatch = textDocument.uri.match(new RegExp(`\.(${allowedFileKinds.join("|")})$`));
+    const fileKindMatch = textDocument.uri.match(new RegExp(`.(${allowedFileKinds.join("|")})$`));
     if (null == fileKindMatch) return [];
     const fileKind = fileKindMatch[1];
 
@@ -48,7 +48,7 @@ export default function(session: Session): LSP.RequestHandler<LSP.CodeLensParams
           null != (textLine = document.getText().substring(document.offsetAt(start), document.offsetAt(end))) &&
           null !=
             (matches = textLine.match(
-              /^\s*\b(and|let)\b(\s*)(\brec\b)?(\s*)(?:(?:\(?(?:[^\)]*)\)?(?:\s*::\s*(?:(?:\b\w+\b)|\((?:\b\w+\b):.*?\)=(?:\b\w+\b)))?|\((?:\b\w+\b)(?::.*?)?\))\s*)(?:(?:(?:(?:\b\w+\b)(?:\s*::\s*(?:(?:\b\w+\b)|\((?:\b\w+\b):.*?\)=(?:\b\w+\b)))?|\((?:\b\w+\b)(?::.*?)?\))\s*)|(?::(?=[^:])(?:.*?=>)*)?(?:.*?=)\s*[^\s=;]+?\s*.*?;?$)/m,
+              /^\s*\b(and|let)\b(\s*)(\brec\b)?(\s*)(?:(?:\(?(?:[^)]*)\)?(?:\s*::\s*(?:(?:\b\w+\b)|\((?:\b\w+\b):.*?\)=(?:\b\w+\b)))?|\((?:\b\w+\b)(?::.*?)?\))\s*)(?:(?:(?:(?:\b\w+\b)(?:\s*::\s*(?:(?:\b\w+\b)|\((?:\b\w+\b):.*?\)=(?:\b\w+\b)))?|\((?:\b\w+\b)(?::.*?)?\))\s*)|(?::(?=[^:])(?:.*?=>)*)?(?:.*?=)\s*[^\s=;]+?\s*.*?;?$)/m,
             ))
         ) {
           event.position.character += matches[1].length;

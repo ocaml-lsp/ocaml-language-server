@@ -13,8 +13,10 @@ async function restartMerlin(session: Session): Promise<void> {
     if (!tools.has("bsb")) {
       await session.analyzer.refreshImmediate(document);
     }
-    session.indexer.populated = false;
-    await session.indexer.populate(document);
+    await new Promise(resolve => {
+      session.indexer.populated = false;
+      resolve(session.indexer.populate(document));
+    });
   }
 }
 

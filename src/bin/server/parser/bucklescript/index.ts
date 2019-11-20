@@ -45,9 +45,10 @@ export function parseErrors(bsbOutput: string): { [key: string]: LSP.Diagnostic[
   const reLevel2Errors = new RegExp(
     [
       /(?:We've found a bug for you!|Warning number \d+)\n\s*/, // Heading of the error / warning
-      /(.*) (\d+):(\d+)(?:-(\d+)(?::(\d+))?)?\n  \n/, // Capturing file name and lines / indexes
-      /(?:.|\n)*?\n  \n/, // Ignoring actual lines content being printed
+      /(.*)\s(\d+):(\d+)(?:-(\d+)(?::(\d+))?)?\n\s{2}\n/, // Capturing file name and lines / indexes
+      /(?:.|\n)*?\n\s{2}\n/, // Ignoring actual lines content being printed
       /((?:.|\n)*?)/, // Capturing error / warning message
+      // eslint-disable-next-line no-control-regex
       /((?=We've found a bug for you!)|(?:\[\d+\/\d+\] (?:\x1b\[[0-9;]*?m)?Building)|(?:ninja: build stopped: subcommand failed)|(?=Warning number \d+)|$)/, // Possible tails
     ]
       .map(r => r.source)
@@ -62,7 +63,7 @@ export function parseErrors(bsbOutput: string): { [key: string]: LSP.Diagnostic[
     const startCharacter = Number(errorMatch[3]) - 1;
     let endLine = Number(errorMatch[4]) - 1;
     let endCharacter = Number(errorMatch[5]); // Non inclusive originally
-    const message = errorMatch[6].replace(/\n  /g, "\n");
+    const message = errorMatch[6].replace(/\n\s{2}/g, "\n");
     if (isNaN(endLine)) {
       // Format path/to/file.re 10:20 message
       endCharacter = startCharacter + 1;
@@ -95,7 +96,8 @@ export function parseErrors(bsbOutput: string): { [key: string]: LSP.Diagnostic[
     [
       /(?:We've found a bug for you!|Warning number \d+)\n\s*/, // Heading of the error / warning
       /(.*)/, // Capturing file name
-      /\n  \n  ((?:.|\n)*?)/, // Capturing error / warning message
+      /\n\s{2}\n\s{2}((?:.|\n)*?)/, // Capturing error / warning message
+      // eslint-disable-next-line no-control-regex
       /((?=We've found a bug for you!)|(?:\[\d+\/\d+\] (?:\x1b\[[0-9;]*?m)?Building)|(?:ninja: build stopped: subcommand failed)|(?=Warning number \d+)|$)/, // Possible tails
     ]
       .map(r => r.source)
@@ -112,7 +114,7 @@ export function parseErrors(bsbOutput: string): { [key: string]: LSP.Diagnostic[
       const startCharacter = 0;
       const endLine = 0;
       const endCharacter = 0;
-      const message = errorMatch[2].replace(/\n  /g, "\n");
+      const message = errorMatch[2].replace(/\n\s{2}/g, "\n");
       const severity = /^Warning number \d+/.exec(errorMatch[0])
         ? LSP.DiagnosticSeverity.Warning
         : LSP.DiagnosticSeverity.Error;
