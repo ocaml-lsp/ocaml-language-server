@@ -63,7 +63,7 @@ export namespace Query {
   // locate
   export const locate = (name: null | string, kind: "ml" | "mli") => ({
     at: (position: Position) =>
-      new Query<["locate", null | string, ("ml" | "mli"), "at", Position], { file: string; pos: IColumnLine }>([
+      new Query<["locate", null | string, "ml" | "mli", "at", Position], { file: string; pos: IColumnLine }>([
         "locate",
         name,
         kind,

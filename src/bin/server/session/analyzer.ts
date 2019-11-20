@@ -7,7 +7,7 @@ import * as processes from "../processes";
 import Session from "./index";
 
 export default class Analyzer implements LSP.Disposable {
-  public readonly refreshImmediate: ((event: LSP.TextDocumentIdentifier) => Promise<void>);
+  public readonly refreshImmediate: (event: LSP.TextDocumentIdentifier) => Promise<void>;
   public readonly refreshDebounced: ((event: LSP.TextDocumentIdentifier) => Promise<void>) & lodash.Cancelable;
   private readonly bsbDiagnostics: { [key: string]: LSP.Diagnostic[] } = {};
 

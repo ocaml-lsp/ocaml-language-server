@@ -8,8 +8,7 @@ export default function(session: Session): LSP.RequestHandler<LSP.CodeLens, LSP.
     const data: LSP.SymbolInformation & {
       event: LSP.TextDocumentPositionParams;
       fileKind: "ml" | "re";
-    } =
-      event.data;
+    } = event.data;
     const itemType = await command.getType(session, data.event, token, 1);
     if (null == itemType) return event;
 
