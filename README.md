@@ -4,6 +4,8 @@
     <a href="https://github.com/ocaml-lsp/ocaml-language-server/actions"><img
         src="https://github.com/ocaml-lsp/ocaml-language-server/workflows/ci/badge.svg" /></a>
     <img
+        src="https://img.shields.io/badge/eslint-checked-informational?logo=eslint" />
+    <img
         src="https://img.shields.io/badge/prettier-formatted-informational?logo=prettier" />
   </p>
   <p style="margin-bottom: 0.5ex;">
