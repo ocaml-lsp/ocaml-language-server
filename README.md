@@ -4,19 +4,21 @@
     <a href="https://github.com/ocaml-lsp/ocaml-language-server/actions"><img
         src="https://github.com/ocaml-lsp/ocaml-language-server/workflows/ci/badge.svg" /></a>
     <img
+        src="https://img.shields.io/npm/types/ocaml-language-server?logo=typescript" />
+    <img
         src="https://img.shields.io/badge/eslint-checked-informational?logo=eslint" />
     <img
         src="https://img.shields.io/badge/prettier-formatted-informational?logo=prettier" />
   </p>
   <p style="margin-bottom: 0.5ex;">
     <a href="https://npmjs.org/package/ocaml-language-server"><img
-        src="https://img.shields.io/npm/v/ocaml-language-server.svg?logo=javascript" /></a>
+        src="https://img.shields.io/node/v/ocaml-language-server.svg?logo=node.js" /></a>
     <a href="https://npmjs.org/package/ocaml-language-server"><img
         src="https://img.shields.io/npm/dm/ocaml-language-server.svg?logo=npm" /></a>
     <a href="https://npmjs.org/package/ocaml-language-server"><img
-        src="https://img.shields.io/librariesio/release/npm/ocaml-language-server.svg?logo=npm" /></a>
+        src="https://img.shields.io/librariesio/release/npm/ocaml-language-server.svg?logo=javascript" /></a>
   </p>
-  <strong>A language server for <a href="http://ocaml.org"><img style="padding: 0em 0.15em 0em 0em; text-align: center;" height="16" width="16" src="https://unpkg.com/simple-icons@latest/icons/ocaml.svg" />OCaml</a> and <a href="https://reasonml.github.io"><img style="padding: 0em 0.15em 0em 0em; text-align: center;" height="16" width="16" src="https://unpkg.com/simple-icons@latest/icons/reason.svg" />Reason</a>.</strong>
+  <strong>A language server for <a href="http://ocaml.org"><img height="16" width="16" src="https://unpkg.com/simple-icons@latest/icons/ocaml.svg" /> OCaml</a> and <a href="https://reasonml.github.io"><img height="16" width="16" src="https://unpkg.com/simple-icons@latest/icons/reason.svg" /> Reason</a>.</strong>
 </div>
 
 ## Overview
