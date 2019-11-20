@@ -27,7 +27,7 @@
       "shx mkdir -p bin/server/parser/ocamldoc && pegjs -o bin/server/parser/ocamldoc/grammar.js src/bin/server/parser/ocamldoc/grammar.pegjs",
     "format": "./node_modules/.bin/prettier --write \"src/**/*.ts\"",
     "lint": "tslint --project tsconfig.json",
-    "prepare": "npm run build",
+    "prepare": "npm run build --scripts-prepend-node-path",
     "test": "jest"
   },
   "jest": {
