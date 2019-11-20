@@ -3,6 +3,16 @@
   <p style="margin-bottom: 0.5ex;">
     <a href="https://github.com/ocaml-lsp/ocaml-language-server/actions"><img
         src="https://github.com/ocaml-lsp/ocaml-language-server/workflows/ci/badge.svg" /></a>
+    <img
+        src="https://img.shields.io/badge/prettier-formatted-success?logo=prettier" />
+  </p>
+  <p style="margin-bottom: 0.5ex;">
+    <a href="https://npmjs.org/package/ocaml-language-server"><img
+        src="https://img.shields.io/npm/v/ocaml-language-server.svg?logo=javascript" /></a>
+    <a href="https://npmjs.org/package/ocaml-language-server"><img
+        src="https://img.shields.io/npm/dm/ocaml-language-server.svg?logo=npm" /></a>
+    <a href="https://npmjs.org/package/ocaml-language-server"><img
+        src="https://img.shields.io/librariesio/release/npm/ocaml-language-server.svg?logo=npm" /></a>
   </p>
   <strong>A language server for <a href="http://ocaml.org">OCaml</a> and <a href="https://reasonml.github.io">Reason</a>.</strong>
 </div>
