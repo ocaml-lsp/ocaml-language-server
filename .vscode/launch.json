@@ -9,10 +9,7 @@
       "type": "node",
       "request": "attach",
       "port": 6009,
-      "outFiles": [
-        "${workspaceFolder}/bin/**/*.js",
-        "${workspaceFolder}/lib/**/*.js"
-      ],
+      "outFiles": ["${workspaceFolder}/bin/**/*.js", "${workspaceFolder}/lib/**/*.js"],
       "sourceMaps": true,
       "stopOnEntry": false,
       "smartStep": true

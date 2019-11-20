@@ -9,10 +9,7 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": [
-      "dom",
-      "es2020"
-    ],
+    "lib": ["dom", "es2020"],
     "module": "commonjs",
     "moduleResolution": "node",
     "newLine": "LF",
@@ -36,7 +33,5 @@
     "suppressImplicitAnyIndexErrors": false,
     "target": "es2020"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

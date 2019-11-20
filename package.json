@@ -22,7 +22,7 @@
   "scripts": {
     "build:pegjs:ocamldoc": "shx mkdir -p bin/server/parser/ocamldoc && pegjs -o bin/server/parser/ocamldoc/grammar.js src/bin/server/parser/ocamldoc/grammar.pegjs",
     "build": "tsc -p .",
-    "format": "prettier --write 'src/**/*.{js,ts,tsx}'",
+    "format": "prettier --write '**/*.{js,json,ts,tsx,yml,yaml}'",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
     "prebuild": "npm run build:pegjs:ocamldoc && npm run format && npm run lint",
     "prepare": "npm run build --scripts-prepend-node-path",
