@@ -26,21 +26,7 @@
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
     "prebuild": "npm run build:pegjs:ocamldoc && npm run format && npm run lint",
     "prepare": "npm run build --scripts-prepend-node-path",
-    "test": "jest",
     "watch": "npm run prebuild && tsc -watch -p ."
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
-    },
-    "testMatch": [
-      "**/__tests__/*.(ts|tsx|js)"
-    ]
   },
   "main": "./lib/index.js",
   "typings": "./lib/index",
@@ -54,7 +40,6 @@
   "devDependencies": {
     "@types/async": "^3.0.3",
     "@types/glob": "^7.1.1",
-    "@types/jest": "^24.0.23",
     "@types/lodash": "^4.14.149",
     "@types/lokijs": "1.2.30",
     "@types/node": "^12.12.11",
@@ -66,7 +51,6 @@
     "eslint": "^6.6.0",
     "prettier": "^1.19.1",
     "shx": "^0.3.2",
-    "ts-jest": "^24.1.0",
     "ts-node": "^8.5.2",
     "typescript": "^3.7.2"
   },
@@ -74,7 +58,6 @@
     "async": "^3.1.0",
     "deepmerge": "^4.2.2",
     "glob": "^7.1.6",
-    "jest": "^24.9.0",
     "lodash": "^4.17.15",
     "lokijs": "1.5.3",
     "pegjs": "^0.10.0",

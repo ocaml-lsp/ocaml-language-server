@@ -1,2 +1,0 @@
-File "./src/Demo.re", line 42, characters 7-22:
-Error: 2146: syntax error, consider adding a `;' before

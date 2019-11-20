@@ -1,9 +1,0 @@
-File "/Users/bla/Development/github/the-super-tiny-compiler/src/compiler.re", line 498, characters 13-14:
-Error: 1087: Expecting one of the following:
-  - "|" to open the next pattern
-  - "=>" to start the body of the matched pattern
-  - "when" to start a contitional guard for the previous pattern
-
-
-  We've found a bug for you!
-  /Users/bla/Development/github/the-super-tiny-compiler/src/compiler.re

@@ -1,9 +1,0 @@
-ninja: Entering directory `lib/bs'
-[1/2] Building src/Demo.mlast
-FAILED: src/Demo.mlast 
-/Users/bla/.nvm/versions/node/v6.11.2/lib/node_modules/bs-platform/lib/bsc.exe -pp "/Users/bla/.nvm/versions/node/v6.11.2/lib/node_modules/bs-platform/lib/refmt3.exe --print binary"    -w -30-40+6+7+27+32..39+44+45+101 -warn-error +101 -bs-suffix -nostdlib -I '/Users/bla/Development/sandbox/my-first-app/node_modules/bs-platform/lib/ocaml' -no-alias-deps -color always -c -o src/Demo.mlast -bs-syntax-only -bs-binary-ast -impl /Users/bla/Development/sandbox/my-first-app/src/Demo.re
-File "/Users/bla/Development/sandbox/my-first-app/src/Demo.re", line 7, characters 6-11:
-Warning 101: Unused bucklescript attribute: bs.as
-File "/Users/bla/Development/sandbox/my-first-app/src/Demo.re", line 1:
-Error: Some fatal warnings were triggered (1 occurrences)
-ninja: error: rebuilding 'build.ninja': subcommand failed

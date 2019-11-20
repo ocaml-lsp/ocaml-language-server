@@ -1,7 +1,0 @@
-ninja: Entering directory `lib/bs'
-[1/2] Building src/Demo.mlast
-FAILED: src/Demo.mlast
-/Users/bla/.nvm/versions/node/v6.11.2/lib/node_modules/bs-platform/lib/bsc.exe -pp "/Users/bla/.nvm/versions/node/v6.11.2/lib/node_modules/bs-platform/lib/refmt.exe --print binary"    -w -30-40+6+7+27+32..39+44+45+101 -warn-error +101 -bs-suffix -nostdlib -I '/Users/bla/Development/sandbox/my-first-app/node_modules/bs-platform/lib/ocaml' -no-alias-deps -color always -c -o src/Demo.mlast -bs-syntax-only -bs-binary-ast -impl /Users/bla/Development/sandbox/my-first-app/src/Demo.re
-File "/Users/bla/Development/sandbox/my-first-app/src/Demo.re", line 63, characters 0-52:
-Error: You used an FFI attribute that can't be used with [@bs.send]
-ninja: error: rebuilding 'build.ninja': subcommand failed
