@@ -2,22 +2,22 @@
   "name": "ocaml-language-server",
   "version": "1.0.34",
   "license": "Apache-2.0",
-  "description": "OCaml language server",
   "author": {
     "name": "Darin Morrison",
-    "email": "freebroccolo@users.noreply.github.com",
-    "url": "https://github.com/freebroccolo"
+    "email": "darinmorrison@users.noreply.github.com",
+    "url": "https://github.com/darinmorrison"
   },
-  "homepage": "https://github.com/freebroccolo/ocaml-language-server",
+  "description": "OCaml language server",
+  "homepage": "https://github.com/ocaml-lsp/ocaml-language-server",
   "repository": {
     "type": "git",
-    "url": "git://github.com/freebroccolo/ocaml-language-server.git"
+    "url": "git://github.com/ocaml-lsp/ocaml-language-server.git"
   },
   "bugs": {
-    "url": "https://github.com/freebroccolo/ocaml-language-server/issues"
+    "url": "https://github.com/ocaml-lsp/ocaml-language-server/issues"
   },
   "engines": {
-    "node": ">=6.9.1"
+    "node": ">=13.1.0"
   },
   "scripts": {
     "prebuild": "npm run build:pegjs:ocamldoc && npm run format && npm run lint",
