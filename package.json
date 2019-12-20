@@ -59,7 +59,7 @@
     "deepmerge": "^4.2.2",
     "glob": "^7.1.6",
     "lodash": "^4.17.15",
-    "lokijs": "1.5.3",
+    "lokijs": "1.5.8",
     "pegjs": "^0.10.0",
     "vscode-jsonrpc": "^4.0.0",
     "vscode-languageclient": "^5.2.1",
